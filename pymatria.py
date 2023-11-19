@@ -43,72 +43,75 @@ with open('bereshis.txt') as f:
 
 def find_all_hebrew_words_by_numerical_value(numerical_value):
     matching_words = []
-    for word, value in BERESHIT_LIB.items():
-        if value == numerical_value:
-            matching_words.append(word)
+    for words, values in BERESHIT_LIB.items():
+        if values == numerical_value:
+            matching_words.append(words)
     return matching_words
 
 
-def reduce_number_to_hebrew_word(number):
+def reduce_number_to_hebrew_word(numbers):
     """Converts a given number to its corresponding Hebrew word using gematria."""
     # Initialize an empty string to store the Hebrew word
-    hebrew_word = ""
+    hebrew_words = ""
 
     # Check if the input number is valid
-    if number < 1 or number > 7000:
+    if numbers < 1 or numbers > 7000:
         raise ValueError("The input number must be between 1 and 7000.")
 
     # Iterate while the number is greater than zero
-    while number > 0:
+    while numbers > 0:
         # Find the largest gematria value that is less than or equal to the remaining number
         largest_gematria_value = 0
-        for value in GEMATRIA_CHART.values():
-            if number >= value > largest_gematria_value:
-                largest_gematria_value = value
+        for values in GEMATRIA_CHART.values():
+            if numbers >= values > largest_gematria_value:
+                largest_gematria_value = values
 
         # Find the corresponding Hebrew letter for the largest gematria value
         hebrew_letter = ""
-        for letter, value in GEMATRIA_CHART.items():
-            if value == largest_gematria_value:
+        for letter, values in GEMATRIA_CHART.items():
+            if values == largest_gematria_value:
                 hebrew_letter = letter
                 break
 
         # Append the Hebrew letter to the word
-        hebrew_word += hebrew_letter
+        hebrew_words += hebrew_letter
 
         # Subtract the largest gematria value from the remaining number
-        number -= largest_gematria_value
+        numbers -= largest_gematria_value
 
     # Return the Hebrew word
-    return hebrew_word
+    return hebrew_words
 
 
-def calculate_gematria_value(hebrew_word):
+def calculate_gematria_value(hebrew_words):
     gematria_value = 0
 
-    for letter in hebrew_word:
+    for letter in hebrew_words:
         letter_value = GEMATRIA_CHART.get(letter, 0)
         gematria_value += letter_value
 
     return gematria_value
 
 
-def process_user_input(user_input):
-    if not user_input:  # Check if the input is empty
+def process_user_input(users_input):
+    if not users_input:  # Check if the input is empty
         print("Please enter a valid numerical value or a Hebrew word from the Bereshit list.")
-    elif user_input.isalpha():  # Check if the input is a Hebrew word (alphabetic characters)
-        if user_input in BERESHIT_LIB:
-            print("The gematria value of the word", user_input, "is", BERESHIT_LIB[user_input])
+    elif users_input.isalpha():  # Check if the input is a Hebrew word (alphabetic characters)
+        if users_input in BERESHIT_LIB:
+            print("The gematria value of the word", users_input, "is", BERESHIT_LIB[users_input])
         else:
-            print("The word", user_input, "is not found in the Bereshit Hebrew word list.")
+            print("The word", users_input, "is not found in the Bereshit Hebrew word list.")
     else:  # The input is a numerical value
         try:
             pass
         except ValueError:
             print("Invalid input. Please enter a valid numerical value or a Hebrew word from the Bereshit list.")
+        else:
+            print("The gematria value of the number", users_input, "is", calculate_gematria_value(users_input))
 
 
 if __name__ == "__main__":
+    # Ask the user to enter a Hebrew word or a numerical value
     user_input: str = input("Enter a Hebrew word or a numerical value to find the corresponding gematria: ")
     process_user_input(user_input)
 
