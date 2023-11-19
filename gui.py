@@ -19,7 +19,7 @@ output_label = tk.Text(root, height=5, width=50)
 output_label.pack()
 
 
-def process_user_input():
+def process_user_input(output_text):
     user_input = entry.get()
 
     if not user_input:  # Check if the input is empty
@@ -54,7 +54,7 @@ def clear():
     entry.delete(0, tk.END)
 
 
-button = tk.Button(root, text="Submit", command=process_user_input, width=15)
+button = tk.Button(root, text="Submit", command=lambda: process_user_input(output_label), width=15)
 button.pack()
 
 button = tk.Button(root, text="Clear", command=clear, width=15)
