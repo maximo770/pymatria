@@ -35,7 +35,7 @@ GEMATRIA_CHART = {
 }
 
 # Read the output.txt file and populate BERESHIT_LIB
-with open('bereshis.txt') as f:
+with open("bereshit.txt") as f:
     for line in f:
         word, value = line.strip().split(',')
         BERESHIT_LIB[word] = int(value)
