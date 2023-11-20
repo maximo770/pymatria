@@ -1,7 +1,7 @@
 # Bereshit Hebrew Word List with gematria value
-from typing import Any
 
-BERESHIT_LIB: dict[Any, int] = {}
+
+BERESHIT_LIB: dict[any, int] = {}
 
 # Define the gematria chart
 GEMATRIA_CHART = {
