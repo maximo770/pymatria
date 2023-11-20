@@ -9,5 +9,5 @@ def main():
 
 
 if __name__ == "__main__":
-    gui.root()
     main()
+    gui.root()
